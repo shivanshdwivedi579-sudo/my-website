@@ -87,3 +87,138 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shivansh | Official Website</title>
+
+<style>
+:root {
+  --bg: #111;
+  --text: #ffffff;
+  --card: #1e1e1e;
+  --btn: #ffffff;
+  --btn-text: #000000;
+}
+
+.light {
+  --bg: #f4f4f4;
+  --text: #000000;
+  --card: #ffffff;
+  --btn: #000000;
+  --btn-text: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.3s;
+}
+
+header {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.btn {
+  display: inline-block;
+  margin: 15px;
+  padding: 14px 35px;
+  background: var(--btn);
+  color: var(--btn-text);
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: var(--card);
+  border: none;
+  padding: 10px 15px;
+  color: var(--text);
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.section {
+  padding: 40px 20px;
+  background: var(--card);
+  margin: 20px;
+  border-radius: 15px;
+}
+
+footer {
+  padding: 15px;
+  text-align: center;
+  color: gray;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 30px;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<button class="toggle" onclick="toggleMode()">🌙 / ☀️</button>
+
+<header>
+  <h1>Shivansh Dwivedi</h1>
+  <p>Welcome to my professional website</p>
+
+  <a class="btn" href="https://www.instagram.com/its_shivansh_dwivedi_pvt/" target="_blank">
+    Follow me on Instagram
+  </a>
+</header>
+
+<div class="section">
+  <h2>About Me</h2>
+  <p>
+    I am passionate about technology, creativity, and building modern websites.
+    This website is fully responsive and works on all devices.
+  </p>
+</div>
+
+<footer>
+  © 2025 | Designed by Shivansh
+</footer>
+
+<script>
+function toggleMode() {
+  document.body.classList.toggle("light");
+}
+</script>
+
+</body>
+</html>
+
+
