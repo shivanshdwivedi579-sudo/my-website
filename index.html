@@ -83,7 +83,6 @@ input {
 .qr-box img {
   width: 230px;
   border-radius: 12px;
-  margin-top: 10px;
 }
 
 button {
@@ -94,7 +93,18 @@ button {
   cursor: pointer;
   background: var(--accent);
   color: #000;
-  margin-top: 10px;
+  margin: 6px;
+}
+
+table {
+  width: 100%;
+  color: white;
+  border-collapse: collapse;
+}
+
+th, td {
+  border-bottom: 1px solid #444;
+  padding: 8px;
 }
 
 footer {
@@ -140,13 +150,20 @@ footer {
 
 <!-- PAYMENT -->
 <div class="section">
-  <h2>📱 Scan & Pay</h2>
+  <h2>💳 Pay Using UPI</h2>
 
   <div class="qr-box">
-    <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=shivanshdwivedi0120-1@okaxis&pn=Shivansh&cu=INR">
+    <img id="qrImage"
+      src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=shivanshdwivedi0120-1@okaxis&pn=Shivansh&cu=INR">
   </div>
 
   <p><b>UPI:</b> shivanshdwivedi0120-1@okaxis</p>
+
+  <button onclick="payUPI('gpay')">Google Pay</button>
+  <button onclick="payUPI('phonepe')">PhonePe</button>
+  <button onclick="payUPI('paytm')">Paytm</button>
+  <button onclick="payUPI('bhim')">BHIM</button>
+  <button onclick="payUPI('upi')">Any UPI</button>
 </div>
 
 <!-- SCREENSHOT -->
@@ -159,9 +176,24 @@ footer {
 
 <!-- ORDER -->
 <div class="section">
-  <h2>📦 Place Order</h2>
-  <button onclick="placeOrder()">Send Order on WhatsApp</button>
-  <p id="orderInfo"></p>
+  <h2>📦 Add Order</h2>
+  <button onclick="placeOrder()">Add Order</button>
+</div>
+
+<!-- ORDER LIST -->
+<div class="section">
+  <h2>📋 Orders</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>UID</th>
+        <th>Diamonds</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody id="orderList"></tbody>
+  </table>
 </div>
 
 <footer>
@@ -178,26 +210,28 @@ function toggleTheme() {
 document.getElementById("uid").addEventListener("input", function () {
   if (this.value.length >= 6) {
     document.getElementById("playerName").innerHTML =
-      "🎮 Player: Player_" + this.value.slice(-4);
+      "🎮 Player_" + this.value.slice(-4);
   } else {
     document.getElementById("playerName").innerHTML = "";
   }
 });
 
 function selectDiamond(diamond, price) {
+  window.selectedDiamond = diamond;
+  window.selectedPrice = price;
+
   document.getElementById("priceText").innerHTML =
     `💎 ${diamond} Diamonds — ₹${price}`;
 
   const upi = `upi://pay?pa=${UPI_ID}&pn=Shivansh&am=${price}&cu=INR`;
-
   document.getElementById("qrImage").src =
     "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" +
     encodeURIComponent(upi);
 }
 
-function previewImage(event) {
+function previewImage(e) {
   const img = document.getElementById("preview");
-  img.src = URL.createObjectURL(event.target.files[0]);
+  img.src = URL.createObjectURL(e.target.files[0]);
   img.style.display = "block";
 }
 
@@ -207,28 +241,63 @@ function generateOrderID() {
 
 function placeOrder() {
   const uid = document.getElementById("uid").value;
-  const price = document.getElementById("priceText").innerText;
-
-  if (!uid || !price.includes("₹")) {
-    alert("Please enter UID and select diamonds.");
+  if (!uid || !window.selectedDiamond) {
+    alert("Please enter UID and select diamonds");
     return;
   }
 
-  const orderId = generateOrderID();
-  document.getElementById("orderInfo").innerHTML =
-    "✅ Order ID: <b>" + orderId + "</b>";
+  const order = {
+    id: generateOrderID(),
+    uid: uid,
+    diamonds: window.selectedDiamond,
+    price: window.selectedPrice
+  };
 
-  const message =
-`Free Fire Order
-UID: ${uid}
-${price}
-Order ID: ${orderId}
+  const orders = JSON.parse(localStorage.getItem("orders") || "[]");
+  orders.push(order);
+  localStorage.setItem("orders", JSON.stringify(orders));
 
-Payment completed. Please verify.`;
-
-  window.open("https://wa.me/?text=" + encodeURIComponent(message), "_blank");
+  renderOrders();
+  alert("Order Added Successfully!");
 }
+
+function renderOrders() {
+  const orders = JSON.parse(localStorage.getItem("orders") || "[]");
+  const table = document.getElementById("orderList");
+  table.innerHTML = "";
+
+  orders.forEach(o => {
+    table.innerHTML += `
+      <tr>
+        <td>${o.id}</td>
+        <td>${o.uid}</td>
+        <td>${o.diamonds}</td>
+        <td>₹${o.price}</td>
+      </tr>`;
+  });
+}
+
+function payUPI(app) {
+  if (!window.selectedPrice) {
+    alert("Select diamond pack first");
+    return;
+  }
+
+  let url = "";
+  const amount = window.selectedPrice;
+
+  if (app === "gpay") url = `gpay://upi/pay?pa=${UPI_ID}&am=${amount}&cu=INR`;
+  else if (app === "phonepe") url = `phonepe://pay?pa=${UPI_ID}&am=${amount}&cu=INR`;
+  else if (app === "paytm") url = `paytmmp://pay?pa=${UPI_ID}&am=${amount}&cu=INR`;
+  else if (app === "bhim") url = `bhim://pay?pa=${UPI_ID}&am=${amount}&cu=INR`;
+  else url = `upi://pay?pa=${UPI_ID}&am=${amount}&cu=INR`;
+
+  window.location.href = url;
+}
+
+renderOrders();
 </script>
 
 </body>
 </html>
+
