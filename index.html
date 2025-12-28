@@ -64,13 +64,10 @@ input {
   transform: scale(1.05);
 }
 
-.qr-box {
-  margin-top: 20px;
-}
-
 .qr-box img {
   width: 230px;
   border-radius: 12px;
+  margin-top: 10px;
 }
 
 footer {
@@ -86,15 +83,17 @@ footer {
 
 <header>
   <h1>🔥 Free Fire Diamond Top-Up</h1>
-  <p>Fast • Secure • Easy</p>
+  <p>Fast • Secure • Manual Verification</p>
 </header>
 
+<!-- PLAYER DETAILS -->
 <div class="section">
   <h2>🎮 Player Details</h2>
   <input type="text" id="uid" placeholder="Enter Player UID">
   <p id="playerName" style="color:#00ffcc;font-weight:bold;"></p>
 </div>
 
+<!-- DIAMOND OPTIONS -->
 <div class="section">
   <h2>💎 Select Diamonds</h2>
 
@@ -110,23 +109,41 @@ footer {
   <p id="priceText">Select a diamond pack</p>
 </div>
 
+<!-- PAYMENT SECTION -->
 <div class="section">
   <h2>📱 Pay Using GPay</h2>
 
   <div class="qr-box">
-    <img id="qrImage" src="" alt="QR Code">
+    <img id="qrImage" src="" alt="QR Code will appear here">
   </div>
 
   <p id="upiText"></p>
 </div>
 
+<!-- SCREENSHOT UPLOAD -->
+<div class="section">
+  <h2>📸 Upload Payment Screenshot</h2>
+
+  <input type="file" accept="image/*" onchange="previewImage(event)">
+
+  <div style="margin-top:15px;">
+    <img id="preview" style="max-width:250px; border-radius:12px; display:none;">
+  </div>
+
+  <p style="color:gray;font-size:13px;">
+    Upload screenshot after payment.<br>
+    Order will be verified manually.
+  </p>
+</div>
+
 <footer>
-  ⚠️ Payment is manual. Diamonds are added after verification.
+  ⚠️ Payments are verified manually. No instant delivery.
 </footer>
 
 <script>
 const UPI_ID = "shivanshdwivedi0120-1@okaxis";
 
+// Player name preview
 document.getElementById("uid").addEventListener("input", function () {
   if (this.value.length >= 6) {
     document.getElementById("playerName").innerHTML =
@@ -136,6 +153,7 @@ document.getElementById("uid").addEventListener("input", function () {
   }
 });
 
+// Select diamond + generate QR
 function selectDiamond(diamond, price) {
   document.getElementById("priceText").innerHTML =
     `💎 ${diamond} Diamonds — ₹${price}`;
@@ -150,8 +168,18 @@ function selectDiamond(diamond, price) {
   document.getElementById("upiText").innerHTML =
     `Pay to UPI ID: <b>${UPI_ID}</b>`;
 }
+
+// Screenshot preview
+function previewImage(event) {
+  const img = document.getElementById("preview");
+  const file = event.target.files[0];
+
+  if (file) {
+    img.src = URL.createObjectURL(file);
+    img.style.display = "block";
+  }
+}
 </script>
 
 </body>
 </html>
-
