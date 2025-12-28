@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Free Fire Diamond Top-Up | Demo</title>
+<title>Free Fire Diamond Top-Up</title>
 
 <style>
 :root {
@@ -12,8 +12,6 @@
   --card: #1b1b1b;
   --text: #ffffff;
   --accent: #ffb300;
-  --green: #00ff99;
-  --red: #ff4d4d;
 }
 
 body {
@@ -36,7 +34,7 @@ header {
   text-align: center;
 }
 
-input, select {
+input {
   width: 85%;
   padding: 14px;
   margin: 10px 0;
@@ -44,22 +42,6 @@ input, select {
   border: none;
   font-size: 16px;
   text-align: center;
-}
-
-.btn {
-  padding: 14px 30px;
-  margin: 8px;
-  border-radius: 30px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  background: var(--accent);
-  color: #000;
-}
-
-.btn:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
 }
 
 .diamond-grid {
@@ -75,22 +57,21 @@ input, select {
   border-radius: 12px;
   cursor: pointer;
   border: 2px solid transparent;
-  box-shadow: 0 0 10px rgba(255,179,0,0.2);
 }
 
 .diamond:hover {
   border-color: var(--accent);
-  transform: scale(1.07);
+  transform: scale(1.05);
 }
 
-.status {
-  font-weight: bold;
-  margin-top: 15px;
+.qr-box {
+  margin-top: 20px;
 }
 
-.success { color: var(--green); }
-.pending { color: var(--accent); }
-.error { color: var(--red); }
+.qr-box img {
+  width: 230px;
+  border-radius: 12px;
+}
 
 footer {
   text-align: center;
@@ -105,7 +86,7 @@ footer {
 
 <header>
   <h1>🔥 Free Fire Diamond Top-Up</h1>
-  <p>Fast • Secure • Demo Website</p>
+  <p>Fast • Secure • Easy</p>
 </header>
 
 <div class="section">
@@ -130,59 +111,47 @@ footer {
 </div>
 
 <div class="section">
-  <h2>💳 Payment</h2>
-  <button class="btn" onclick="payNow()">Pay Now</button>
+  <h2>📱 Pay Using GPay</h2>
 
-  <div id="orderId" class="status"></div>
-  <div id="status" class="status"></div>
+  <div class="qr-box">
+    <img id="qrImage" src="" alt="QR Code">
+  </div>
+
+  <p id="upiText"></p>
 </div>
 
 <footer>
-  ⚠️ This is a demo website for UI showcase only.  
-  No real payments or diamond delivery.
+  ⚠️ Payment is manual. Diamonds are added after verification.
 </footer>
 
 <script>
-let selectedAmount = 0;
-let selectedPrice = 0;
-
-function selectDiamond(d, p) {
-  selectedAmount = d;
-  selectedPrice = p;
-  document.getElementById("priceText").innerHTML =
-    `💎 ${d} Diamonds — ₹${p}`;
-}
-
-function generateOrderID() {
-  return "FF" + Math.floor(100000 + Math.random() * 900000);
-}
+const UPI_ID = "shivanshdwivedi0120-1@okaxis";
 
 document.getElementById("uid").addEventListener("input", function () {
   if (this.value.length >= 6) {
     document.getElementById("playerName").innerHTML =
-      "🎮 Player Name: <b>Player_" + this.value.slice(-4) + "</b>";
+      "🎮 Player: Player_" + this.value.slice(-4);
   } else {
     document.getElementById("playerName").innerHTML = "";
   }
 });
 
-function payNow() {
-  let uid = document.getElementById("uid").value;
+function selectDiamond(diamond, price) {
+  document.getElementById("priceText").innerHTML =
+    `💎 ${diamond} Diamonds — ₹${price}`;
 
-  if (!uid || selectedAmount === 0) {
-    alert("Please enter UID and select diamonds");
-    return;
-  }
+  let upiLink = `upi://pay?pa=${UPI_ID}&pn=Shivansh&am=${price}&cu=INR`;
 
-  let orderId = generateOrderID();
-  document.getElementById("orderId").innerHTML =
-    "🧾 Order ID: <b>" + orderId + "</b>";
+  let qrURL =
+    "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" +
+    encodeURIComponent(upiLink);
 
-  document.getElementById("status").className = "status pending";
-  document.getElementById("status").innerHTML =
-    "⏳ Demo Mode: Payment simulation only";
+  document.getElementById("qrImage").src = qrURL;
+  document.getElementById("upiText").innerHTML =
+    `Pay to UPI ID: <b>${UPI_ID}</b>`;
 }
 </script>
 
 </body>
 </html>
+
