@@ -1,51 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>For My Sister 💖</title>
+<title>For Ayesha 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: 'Segoe UI', sans-serif;
+}
+
 body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-    text-align:center;
-    color:white;
+background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a6c1ee);
+background-size: 400% 400%;
+animation: gradient 10s ease infinite;
+color:white;
+text-align:center;
+overflow-x:hidden;
+}
+
+@keyframes gradient{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 .hero{
-    padding:60px 20px;
+padding:70px 20px;
 }
 
 .hero h1{
-    font-size:32px;
+font-size:34px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:16px;
+opacity:0.9;
 }
 
 button{
-    padding:12px 25px;
-    font-size:16px;
-    border:none;
-    border-radius:25px;
-    background:white;
-    color:#ff4b5c;
-    margin-top:20px;
-    cursor:pointer;
+padding:12px 25px;
+margin-top:25px;
+font-size:16px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff4b5c;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
 }
 
 #reasons{
-    padding:20px;
-    text-align:left;
-    max-width:600px;
-    margin:auto;
-    font-size:15px;
-    line-height:1.6;
+padding:20px;
+max-width:650px;
+margin:auto;
+text-align:left;
+line-height:1.7;
 }
 
 .reason{
-    margin-bottom:15px;
-    background:rgba(255,255,255,0.2);
-    padding:10px;
-    border-radius:10px;
+background:rgba(255,255,255,0.2);
+padding:12px;
+border-radius:12px;
+margin-bottom:12px;
+backdrop-filter:blur(5px);
+}
+
+.gallery{
+background:white;
+padding:50px 20px;
+color:#ff4b5c;
+}
+
+.gallery h2{
+margin-bottom:25px;
+}
+
+.images{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+
+.images img{
+width:160px;
+height:220px;
+object-fit:cover;
+border-radius:15px;
+box-shadow:0 4px 15px rgba(0,0,0,0.3);
+transition:0.3s;
+}
+
+.images img:hover{
+transform:scale(1.08);
 }
 </style>
 </head>
@@ -53,118 +108,129 @@ button{
 <body>
 
 <div class="hero">
-<h1>100 Reasons Why You Are Amazing 💕</h1>
-<button onclick="showReasons()">Read All Reasons 💖</button>
-<br>
-<button onclick="playGame()">Accept – Let's Play Free Fire 🎮🔥</button>
+<h1>100 Reasons Why Ayesha Is Truly Special 💕</h1>
+<p>A small reminder of how important and amazing you are every single day.</p>
+<button onclick="showReasons()">Read All 100 Reasons 💖</button>
 </div>
 
 <div id="reasons"></div>
 
+<div class="gallery">
+<h2>Anime Aesthetic Vibes ✨</h2>
+<div class="images">
+<img src="https://source.unsplash.com/300x400/?anime,girl">
+<img src="https://source.unsplash.com/300x400/?anime,portrait">
+<img src="https://source.unsplash.com/300x400/?anime,aesthetic">
+<img src="https://source.unsplash.com/300x400/?anime,illustration">
+<img src="https://source.unsplash.com/300x400/?anime,cute">
+<img src="https://source.unsplash.com/300x400/?anime,art">
+<img src="https://source.unsplash.com/300x400/?anime,wallpaper">
+<img src="https://source.unsplash.com/300x400/?anime,character">
+</div>
+</div>
+
 <script>
 
 const reasons = [
-
-"You always stand by me no matter what.",
-"You protect me even when I don't realize it.",
-"You give the best advice.",
-"You understand me without explanation.",
-"You make difficult days easier.",
-"You motivate me to improve.",
-"You correct me when I'm wrong.",
-"You celebrate my small achievements.",
-"You believe in me.",
-"You encourage me to try again.",
-"You stay strong in tough situations.",
-"You manage responsibilities so well.",
-"You handle problems calmly.",
-"You always think about family first.",
-"You make everyone feel comfortable.",
-"You are kind to others.",
-"You forgive easily.",
-"You teach me patience.",
-"You support my dreams.",
-"You guide me silently.",
-"You listen carefully.",
-"You never give up.",
-"You inspire confidence.",
-"You make sacrifices quietly.",
-"You cheer me up when I'm sad.",
-"You make home feel warm.",
-"You bring positivity.",
-"You keep things balanced.",
-"You show maturity.",
-"You give honest feedback.",
-"You protect family values.",
-"You help without expecting anything.",
-"You share happiness.",
-"You care deeply.",
-"You stay loyal.",
-"You speak wisely.",
-"You stay humble.",
-"You lead by example.",
-"You are responsible.",
-"You are dependable.",
-"You are emotionally strong.",
-"You are thoughtful.",
-"You are caring.",
-"You are supportive.",
-"You are encouraging.",
-"You are calm under pressure.",
-"You are inspiring.",
-"You are patient.",
-"You are loving.",
-"You are trustworthy.",
-"You are protective.",
-"You are generous.",
-"You are understanding.",
-"You are respectful.",
-"You are confident.",
-"You are intelligent.",
-"You are hardworking.",
-"You are brave.",
-"You are resilient.",
-"You are determined.",
-"You are honest.",
-"You are positive.",
-"You are creative.",
-"You are optimistic.",
-"You are compassionate.",
-"You are sincere.",
-"You are reliable.",
-"You are selfless.",
-"You are strong-minded.",
-"You are disciplined.",
-"You are organized.",
-"You are caring about details.",
-"You are emotionally aware.",
-"You are supportive of growth.",
-"You are motivating.",
-"You are wise beyond your age.",
-"You are patient with mistakes.",
-"You are protective of loved ones.",
-"You are calm during chaos.",
-"You are supportive in silence.",
-"You are always there.",
-"You make life easier.",
-"You reduce stress.",
-"You spread happiness.",
-"You are someone I trust.",
-"You are someone I admire.",
-"You are someone I respect.",
-"You are someone I learn from.",
-"You are someone I look up to.",
-"You make me stronger.",
-"You make me better.",
-"You make me confident.",
-"You make me feel safe.",
-"You make me proud.",
-"You make memories special.",
-"You turn problems into lessons.",
-"You bring light into life.",
-"You make every day meaningful.",
-"You are irreplaceable."
-
+"Her kindness makes everyone comfortable.",
+"She carries strength with grace.",
+"Her advice always makes sense.",
+"She supports silently but strongly.",
+"She inspires confidence.",
+"She stays calm during chaos.",
+"She spreads positivity.",
+"She understands without judgment.",
+"She values family deeply.",
+"She shows emotional maturity.",
+"She encourages growth.",
+"She handles responsibility well.",
+"She is dependable.",
+"She is thoughtful.",
+"She is caring.",
+"She is protective.",
+"She is inspiring.",
+"She is wise.",
+"She is patient.",
+"She is loyal.",
+"She is respectful.",
+"She is confident.",
+"She is intelligent.",
+"She is hardworking.",
+"She is brave.",
+"She is resilient.",
+"She is determined.",
+"She is honest.",
+"She is creative.",
+"She is optimistic.",
+"She is compassionate.",
+"She is sincere.",
+"She is reliable.",
+"She is selfless.",
+"She is disciplined.",
+"She is organized.",
+"She is strong-minded.",
+"She listens carefully.",
+"She gives honest feedback.",
+"She protects loved ones.",
+"She motivates others.",
+"She brings comfort.",
+"She reduces stress.",
+"She spreads happiness.",
+"She lifts others up.",
+"She never gives up.",
+"She leads by example.",
+"She handles challenges wisely.",
+"She makes life brighter.",
+"She adds warmth to every space.",
+"She values honesty.",
+"She makes others proud.",
+"She gives strength to family.",
+"She handles pressure gracefully.",
+"She makes problems feel smaller.",
+"She is emotionally strong.",
+"She respects everyone.",
+"She encourages confidence.",
+"She inspires improvement.",
+"She supports dreams.",
+"She makes people smile.",
+"She believes in others.",
+"She makes home peaceful.",
+"She is gentle yet strong.",
+"She keeps things balanced.",
+"She shares happiness.",
+"She values relationships.",
+"She brings calmness.",
+"She supports silently.",
+"She brings clarity.",
+"She handles conflict maturely.",
+"She shows empathy.",
+"She respects boundaries.",
+"She shows leadership.",
+"She is responsible.",
+"She gives reassurance.",
+"She spreads kindness.",
+"She protects dignity.",
+"She values effort.",
+"She shows gratitude.",
+"She gives hope.",
+"She brings stability.",
+"She values trust.",
+"She shows courage.",
+"She builds confidence.",
+"She handles stress maturely.",
+"She uplifts others.",
+"She sets good examples.",
+"She teaches patience.",
+"She inspires respect.",
+"She brings light.",
+"She makes memories special.",
+"She brings emotional balance.",
+"She stands strong for family.",
+"She supports during silence.",
+"She is irreplaceable.",
+"She makes life meaningful.",
+"She adds beauty to life.",
+"She makes everything better."
 ];
 
 function showReasons(){
@@ -173,10 +239,6 @@ for(let i=0;i<reasons.length;i++){
 output += "<div class='reason'><b>Reason "+(i+1)+":</b> "+reasons[i]+"</div>";
 }
 document.getElementById("reasons").innerHTML=output;
-}
-
-function playGame(){
-alert("Let’s open Free Fire and create new memories together! 🎮🔥");
 }
 
 </script>
